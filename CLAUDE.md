@@ -216,9 +216,10 @@ bun preview          # Preview production build
 bun test             # Run tests with vitest
 
 # Code Quality
-bun lint             # Run ESLint
-bun format           # Run Prettier
-bun check            # Format with Prettier and fix ESLint issues
+bunx biome check     # Run Biome linter and formatter checks
+bunx biome check --write  # Fix linting and formatting issues
+bunx biome format --write # Format code only
+bunx biome lint      # Lint code only
 ```
 
 ## Architecture
@@ -260,10 +261,10 @@ Components use Base UI (not Radix) with the "base-mira" style variant.
 
 ### Code Style
 
-- No semicolons
-- Single quotes
-- Trailing commas
-- Uses TanStack ESLint config
+- **Tabs** for indentation (configured in Biome)
+- **Double quotes** for strings (configured in Biome)
+- Biome handles formatting, linting, and import organization automatically
+- Excluded files: `routeTree.gen.ts`, `styles.css`
 
 ### Git Commit Rules
 
