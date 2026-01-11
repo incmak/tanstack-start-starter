@@ -8,6 +8,7 @@ import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { ThemeProvider } from "@/features/theme/components/theme-provider";
 import { ToastProvider } from "@/features/toast/components/toast-provider";
+import { QueryProvider } from "@/lib/query-provider";
 import { generateMeta } from "@/lib/seo";
 import appCss from "../styles.css?url";
 
@@ -27,11 +28,13 @@ function RootComponent() {
 	return (
 		<RootDocument>
 			<ErrorBoundary>
-				<ThemeProvider>
-					<ToastProvider>
-						<Outlet />
-					</ToastProvider>
-				</ThemeProvider>
+				<QueryProvider>
+					<ThemeProvider>
+						<ToastProvider>
+							<Outlet />
+						</ToastProvider>
+					</ThemeProvider>
+				</QueryProvider>
 			</ErrorBoundary>
 		</RootDocument>
 	);

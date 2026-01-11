@@ -4,35 +4,28 @@ import { Link, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useAuth } from "../hooks/use-auth";
+import { useLogin } from "../api/login";
 
 export function LoginForm() {
 	const router = useRouter();
-	const { login } = useAuth();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [error, setError] = useState("");
-	const [isLoading, setIsLoading] = useState(false);
 
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
-		setError("");
-		setIsLoading(true);
-
-		try {
-			const result = await login({ email, password });
-
-			if (result.error) {
-				setError(result.error.message || "Invalid credentials");
-			} else {
-				router.navigate({ to: "/dashboard" });
+	const login = useLogin({
+		onSuccess: (data) => {
+			if (data.error) {
+				return;
 			}
-		} catch {
-			setError("An error occurred. Please try again.");
-		} finally {
-			setIsLoading(false);
-		}
+			router.navigate({ to: "/dashboard" });
+		},
+	});
+
+	const handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault();
+		login.mutate({ email, password });
 	};
+
+	const error = login.data?.error?.message || (login.error?.message ?? null);
 
 	return (
 		<>
@@ -63,7 +56,7 @@ export function LoginForm() {
 				<Button
 					type="submit"
 					className="w-full group mt-6"
-					isLoading={isLoading}
+					isLoading={login.isPending}
 				>
 					Sign In
 					<HugeiconsIcon

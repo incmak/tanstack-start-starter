@@ -1,29 +1,14 @@
-import { signIn, signOut, signUp, useSession } from "../api/auth-client";
-import type { LoginCredentials, SignupCredentials } from "../types";
+import { useSession } from "../api/auth-client";
 
+/**
+ * Hook for accessing session state only.
+ * For auth actions (login, register, logout), use the dedicated mutation hooks:
+ * - useLogin from "@/features/auth/api/login"
+ * - useRegister from "@/features/auth/api/register"
+ * - useLogout from "@/features/auth/api/logout"
+ */
 export function useAuth() {
 	const { data: session, isPending, error, refetch } = useSession();
-
-	const login = async (credentials: LoginCredentials) => {
-		const result = await signIn.email({
-			email: credentials.email,
-			password: credentials.password,
-		});
-		return result;
-	};
-
-	const register = async (credentials: SignupCredentials) => {
-		const result = await signUp.email({
-			email: credentials.email,
-			password: credentials.password,
-			name: credentials.name,
-		});
-		return result;
-	};
-
-	const logout = async () => {
-		await signOut();
-	};
 
 	return {
 		user: session?.user ?? null,
@@ -31,9 +16,6 @@ export function useAuth() {
 		isAuthenticated: !!session?.user,
 		isLoading: isPending,
 		error,
-		login,
-		register,
-		logout,
 		refetch,
 	};
 }

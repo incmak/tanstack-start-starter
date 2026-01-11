@@ -12,6 +12,7 @@ import { AuthGuard } from "@/components/guards/auth-guard";
 import { Button } from "@/components/ui/button";
 import { appConfig } from "@/config/app.config";
 import { ROUTES } from "@/config/constants";
+import { useLogout } from "@/features/auth/api/logout";
 import { useAuth } from "@/features/auth/hooks/use-auth";
 import { ThemeToggle } from "@/features/theme/components/theme-toggle";
 import { cn } from "@/lib/utils";
@@ -28,7 +29,8 @@ const navItems = [
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
 	const location = useLocation();
-	const { user, logout } = useAuth();
+	const { user } = useAuth();
+	const logout = useLogout();
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 
 	return (
@@ -106,10 +108,11 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 							variant="ghost"
 							size="sm"
 							className="w-full justify-start"
-							onClick={() => logout()}
+							onClick={() => logout.mutate()}
+							disabled={logout.isPending}
 						>
 							<HugeiconsIcon icon={Logout01Icon} size={16} />
-							Sign out
+							{logout.isPending ? "Signing out..." : "Sign out"}
 						</Button>
 					</div>
 				</aside>
