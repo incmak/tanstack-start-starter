@@ -1,7 +1,12 @@
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 import { APP_NAME } from "@/config/constants";
+import { requireGuest } from "@/features/auth/utils/auth-guards";
 
 export const Route = createFileRoute("/_auth")({
+	beforeLoad: async () => {
+		// Redirect to dashboard if already authenticated
+		await requireGuest();
+	},
 	component: AuthLayout,
 });
 

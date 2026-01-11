@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { ErrorBoundary } from "@/components/error-boundary";
+import { ProgressBarProvider } from "@/features/navigation/components/progress-bar-provider";
 import { ThemeProvider } from "@/features/theme/components/theme-provider";
 import { ToastProvider } from "@/features/toast/components/toast-provider";
 import { QueryProvider } from "@/lib/query-provider";
@@ -31,7 +32,9 @@ function RootComponent() {
 				<QueryProvider>
 					<ThemeProvider>
 						<ToastProvider>
-							<Outlet />
+							<ProgressBarProvider>
+								<Outlet />
+							</ProgressBarProvider>
 						</ToastProvider>
 					</ThemeProvider>
 				</QueryProvider>

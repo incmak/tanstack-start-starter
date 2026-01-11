@@ -1,21 +1,26 @@
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useForm } from "@tanstack/react-form";
-import { Link, useRouter } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useLogin } from "../api/login";
 import { loginSchema } from "../schemas";
+import { useLoginRedirect } from "../utils/login-redirect";
 
 export function LoginForm() {
-	const router = useRouter();
+	const { handleRedirect } = useLoginRedirect();
 
 	const login = useLogin({
-		onSuccess: (data) => {
+		onSuccess: async (data) => {
 			if (data.error) {
 				return;
 			}
-			router.navigate({ to: "/dashboard" });
+			// Small delay to allow session query to update before navigation
+			// This prevents race condition with beforeLoad guard
+			await new Promise((resolve) => setTimeout(resolve, 100));
+			// Navigate to redirect URL or dashboard
+			await handleRedirect();
 		},
 	});
 

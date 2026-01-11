@@ -1,7 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { LoginForm } from "@/features/auth/components/login-form";
 
+// Type-safe search params for redirect URL
 export const Route = createFileRoute("/_auth/login")({
+	validateSearch: (search: Record<string, unknown>) => ({
+		redirect: (search.redirect as string) || undefined,
+	}),
 	component: LoginPage,
 });
 
