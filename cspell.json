@@ -1,0 +1,29 @@
+{
+	"version": "0.2",
+	"language": "en",
+	"words": [
+		"hugeicons",
+		"Hugeicons",
+		"tanstack",
+		"tailwindcss",
+		"biome",
+		"biomejs",
+		"shadcn",
+		"brisktag",
+		"BriskTag",
+		"fontsource",
+		"oklch",
+		"textfill"
+	],
+	"ignorePaths": [
+		"node_modules",
+		"dist",
+		"build",
+		".vinxi",
+		".output",
+		"*.gen.ts",
+		"bun.lock",
+		"package-lock.json",
+		"pnpm-lock.yaml"
+	]
+}

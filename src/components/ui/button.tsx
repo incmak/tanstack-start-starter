@@ -1,5 +1,8 @@
 import { Button as ButtonPrimitive } from "@base-ui/react/button";
-import { cva, type VariantProps } from "class-variance-authority";
+import { Loading01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import type { VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
@@ -38,18 +41,46 @@ const buttonVariants = cva(
 	},
 );
 
+interface ButtonProps
+	extends Omit<ButtonPrimitive.Props, "className">,
+		VariantProps<typeof buttonVariants> {
+	isLoading?: boolean;
+	children?: React.ReactNode;
+	type?: "button" | "submit" | "reset";
+	className?: string;
+}
+
 function Button({
 	className,
 	variant = "default",
 	size = "default",
+	isLoading = false,
+	children,
+	disabled,
+	type,
 	...props
-}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
+}: ButtonProps) {
 	return (
 		<ButtonPrimitive
 			data-slot="button"
+			type={type}
 			className={cn(buttonVariants({ variant, size, className }))}
+			disabled={disabled || isLoading}
 			{...props}
-		/>
+		>
+			{isLoading ? (
+				<>
+					<HugeiconsIcon
+						icon={Loading01Icon}
+						size={16}
+						className="animate-spin"
+					/>
+					{children}
+				</>
+			) : (
+				children
+			)}
+		</ButtonPrimitive>
 	);
 }
 
