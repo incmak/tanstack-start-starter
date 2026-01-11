@@ -1,10 +1,10 @@
-import { createRouter } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 
-// Import the generated route tree
-import { routeTree } from "./routeTree.gen";
+export const Route = createFileRoute("/$")({
+	component: NotFoundPage,
+});
 
-// Not Found Component
-function NotFound() {
+function NotFoundPage() {
 	return (
 		<div className="flex min-h-screen flex-col items-center justify-center bg-background">
 			<h1 className="text-8xl font-bold tracking-tighter text-foreground/10">
@@ -22,15 +22,3 @@ function NotFound() {
 		</div>
 	);
 }
-
-// Create a new router instance
-export const getRouter = () => {
-	const router = createRouter({
-		routeTree,
-		scrollRestoration: true,
-		defaultPreloadStaleTime: 0,
-		defaultNotFoundComponent: NotFound,
-	});
-
-	return router;
-};

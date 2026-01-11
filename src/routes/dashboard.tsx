@@ -1,18 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { DashboardLayout } from "@/components/layouts/dashboard-layout";
+import { DashboardPage } from "@/features/dashboard/components/dashboard-page";
+import { generateMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/dashboard")({
-	component: DashboardPage,
+	head: () => ({ meta: generateMeta({ title: "Dashboard" }) }),
+	component: Dashboard,
 });
 
-function DashboardPage() {
+function Dashboard() {
 	return (
-		<div className="min-h-screen p-4 sm:p-6 md:p-8">
-			<div className="max-w-7xl mx-auto">
-				<h1 className="text-2xl sm:text-3xl font-bold text-foreground">
-					Dashboard
-				</h1>
-				<p className="mt-2 text-muted-foreground">Welcome to BriskTag</p>
-			</div>
-		</div>
+		<DashboardLayout>
+			<DashboardPage />
+		</DashboardLayout>
 	);
 }
