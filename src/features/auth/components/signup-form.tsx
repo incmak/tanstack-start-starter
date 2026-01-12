@@ -134,6 +134,7 @@ export function SignupForm() {
 				Already have an account?{" "}
 				<Link
 					to="/login"
+					search={{ redirect: undefined }}
 					className="font-medium text-primary transition-colors hover:text-accent"
 				>
 					Sign in
