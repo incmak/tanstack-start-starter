@@ -9,6 +9,7 @@ export const logoutUser = async () => {
 		await new Promise((resolve) => setTimeout(resolve, 300));
 
 		// Clear mock auth cookie
+		// biome-ignore lint/suspicious/noDocumentCookie: Mock mode requires direct cookie manipulation
 		document.cookie = "mock_auth=; path=/; max-age=0";
 
 		return { data: null, error: null };

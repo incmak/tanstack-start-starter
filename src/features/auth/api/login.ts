@@ -10,6 +10,7 @@ export const loginWithCredentials = async (credentials: LoginCredentials) => {
 		await new Promise((resolve) => setTimeout(resolve, 500));
 
 		// Set mock auth cookie (expires in 7 days)
+		// biome-ignore lint/suspicious/noDocumentCookie: Mock mode requires direct cookie manipulation
 		document.cookie = "mock_auth=true; path=/; max-age=604800; SameSite=Lax";
 
 		return { data: null, error: null };

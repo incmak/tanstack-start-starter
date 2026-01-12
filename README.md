@@ -2,6 +2,8 @@
 
 A production-ready, full-stack React starter template built with TanStack Start, featuring authentication, theming, toast notifications, and a feature-based architecture.
 
+Compiled with React 19, Tailwind CSS v4, shadcn/ui components, and Better Auth for authentication by Mueen [https://github.com/incmak].
+
 ## Features
 
 - **TanStack Start** - Full-stack React framework with SSR and file-based routing

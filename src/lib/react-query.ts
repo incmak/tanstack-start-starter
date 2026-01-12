@@ -8,12 +8,13 @@ export const queryConfig: DefaultOptions = {
 	},
 };
 
-// biome-ignore lint/suspicious/noExplicitAny: Generic utility type requires any
-export type ApiFnReturnType<FnType extends (...args: any) => Promise<any>> =
-	Awaited<ReturnType<FnType>>;
+export type ApiFnReturnType<
+	// biome-ignore lint/suspicious/noExplicitAny: Generic constraint requires any
+	FnType extends (...args: any) => Promise<any>,
+> = Awaited<ReturnType<FnType>>;
 
-// biome-ignore lint/suspicious/noExplicitAny: Generic utility type requires any
 export type MutationConfig<
+	// biome-ignore lint/suspicious/noExplicitAny: Generic constraint requires any
 	MutationFnType extends (...args: any) => Promise<any>,
 > = {
 	onMutate?: () => void;
