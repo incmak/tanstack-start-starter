@@ -11,7 +11,13 @@
     "lint": "biome check",
     "format": "biome format --write",
     "check": "biome check --write",
-    "ts-check": "tsc --noEmit"
+    "ts-check": "tsc --noEmit",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "biome check --write"
+    ]
   },
   "dependencies": {
     "@base-ui/react": "^1.0.0",
@@ -51,7 +57,9 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.0.4",
+    "husky": "^9.1.7",
     "jsdom": "^27.0.0",
+    "lint-staged": "^16.2.7",
     "prettier": "^3.5.3",
     "typescript": "^5.7.2",
     "vite": "^7.1.7",

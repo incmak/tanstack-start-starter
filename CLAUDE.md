@@ -413,11 +413,31 @@ import { ArrowRight01Icon, SearchIcon } from "@hugeicons/core-free-icons"
 }
 ```
 
+### Git Hooks (Husky)
+
+This project uses Husky to enforce code quality on commits/pushes.
+
+**Pre-commit (runs on every commit):**
+- Biome check (lint + format) on staged files via lint-staged
+- TypeScript type checking (`tsc --noEmit`)
+- Console.log detection (blocks commits with `console.log`)
+
+**Pre-push (runs before pushing):**
+- Runs all tests (`bun test`)
+
+**Bypassing hooks (emergency only):**
+
+```bash
+git commit --no-verify -m "message"
+git push --no-verify
+```
+
 ### Git Commit Rules
 
 - Keep commit messages concise (under 50 characters for the subject line)
 - Never mention AI, Claude, or any AI assistant in commit messages
 - Do not include "Co-Authored-By" or similar AI attribution lines
 - Focus on what changed, not how it was created
+- Do not use `console.log` in production code (will be blocked by pre-commit hook)
 
 - end all the response with phrase 'bedbab be chus"

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+echo "Running tests before push..."
+bun test
+
+echo "All pre-push checks passed!"

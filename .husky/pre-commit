@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# Run lint-staged (Biome check on staged files)
+bunx lint-staged
+
+# Run TypeScript check (full project)
+echo "Running TypeScript check..."
+bun run ts-check
+
+# Check for console.log in staged files (ignore commented lines)
+echo "Checking for console.log statements..."
+CONSOLE_LOGS=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(ts|tsx|js|jsx)$' | xargs grep -l '^[^/]*console\.log' 2>/dev/null || true)
+
+if [ -n "$CONSOLE_LOGS" ]; then
+  echo ""
+  echo "ERROR: console.log found in the following staged files:"
+  echo "$CONSOLE_LOGS"
+  echo ""
+  echo "Please remove console.log statements before committing."
+  echo "To bypass this check (emergency only): git commit --no-verify"
+  exit 1
+fi
+
+echo "All pre-commit checks passed!"
