@@ -2,10 +2,10 @@ import { ArrowRight01Icon, SparklesIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useForm } from "@tanstack/react-form";
 import { Link, useRouter } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { useRegister } from "../api/register";
 import { signupSchema } from "../schemas";
+import { FormField } from "./form-field";
+import { SubmitButton } from "./submit-button";
 
 export function SignupForm() {
 	const router = useRouter();
@@ -58,7 +58,7 @@ export function SignupForm() {
 				)}
 				<form.Field name="name">
 					{(field) => (
-						<Input
+						<FormField
 							label="Full Name"
 							type="text"
 							name={field.name}
@@ -73,7 +73,7 @@ export function SignupForm() {
 				</form.Field>
 				<form.Field name="email">
 					{(field) => (
-						<Input
+						<FormField
 							label="Email"
 							type="email"
 							name={field.name}
@@ -88,7 +88,7 @@ export function SignupForm() {
 				</form.Field>
 				<form.Field name="password">
 					{(field) => (
-						<Input
+						<FormField
 							label="Password"
 							type="password"
 							name={field.name}
@@ -103,7 +103,7 @@ export function SignupForm() {
 				</form.Field>
 				<form.Field name="confirmPassword">
 					{(field) => (
-						<Input
+						<FormField
 							label="Confirm Password"
 							type="password"
 							name={field.name}
@@ -116,7 +116,7 @@ export function SignupForm() {
 						/>
 					)}
 				</form.Field>
-				<Button
+				<SubmitButton
 					type="submit"
 					className="w-full group mt-6"
 					isLoading={register.isPending}
@@ -128,7 +128,7 @@ export function SignupForm() {
 						size={16}
 						className="ml-2 transition-transform group-hover:translate-x-1"
 					/>
-				</Button>
+				</SubmitButton>
 			</form>
 			<p className="mt-6 text-center text-sm sm:text-base text-muted-foreground">
 				Already have an account?{" "}

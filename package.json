@@ -10,7 +10,8 @@
     "test": "vitest run",
     "lint": "biome check",
     "format": "biome format --write",
-    "check": "biome check --write"
+    "check": "biome check --write",
+    "ts-check": "tsc --noEmit"
   },
   "dependencies": {
     "@base-ui/react": "^1.0.0",

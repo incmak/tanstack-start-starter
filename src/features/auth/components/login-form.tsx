@@ -2,11 +2,11 @@ import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useForm } from "@tanstack/react-form";
 import { Link } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { useLogin } from "../api/login";
 import { loginSchema } from "../schemas";
 import { useLoginRedirect } from "../utils/login-redirect";
+import { FormField } from "./form-field";
+import { SubmitButton } from "./submit-button";
 
 export function LoginForm() {
 	const { handleRedirect } = useLoginRedirect();
@@ -57,7 +57,7 @@ export function LoginForm() {
 				)}
 				<form.Field name="email">
 					{(field) => (
-						<Input
+						<FormField
 							label="Email"
 							type="email"
 							name={field.name}
@@ -72,7 +72,7 @@ export function LoginForm() {
 				</form.Field>
 				<form.Field name="password">
 					{(field) => (
-						<Input
+						<FormField
 							label="Password"
 							type="password"
 							name={field.name}
@@ -85,7 +85,7 @@ export function LoginForm() {
 						/>
 					)}
 				</form.Field>
-				<Button
+				<SubmitButton
 					type="submit"
 					className="w-full group mt-6"
 					isLoading={login.isPending}
@@ -96,7 +96,7 @@ export function LoginForm() {
 						size={16}
 						className="ml-2 transition-transform group-hover:translate-x-1"
 					/>
-				</Button>
+				</SubmitButton>
 			</form>
 			<p className="mt-6 text-center text-sm sm:text-base text-muted-foreground">
 				Don't have an account?{" "}

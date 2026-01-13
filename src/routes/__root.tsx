@@ -70,7 +70,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			</head>
 			<body className="bg-background text-foreground antialiased">
 				{children}
-				{import.meta.env.DEV && <TanStackRouterDevtools />}
+				{import.meta.env.DEV && (
+					<TanStackRouterDevtools position="bottom-right" />
+				)}
 				<Scripts />
 			</body>
 		</html>

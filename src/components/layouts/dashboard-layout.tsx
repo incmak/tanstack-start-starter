@@ -6,7 +6,7 @@ import {
 	UserIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Link, useLocation } from "@tanstack/react-router";
+import { Link, useLocation, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { appConfig } from "@/config/app.config";
@@ -28,8 +28,13 @@ const navItems = [
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
 	const location = useLocation();
+	const router = useRouter();
 	const { user } = useAuth();
-	const logout = useLogout();
+	const logout = useLogout({
+		onSuccess: () => {
+			router.navigate({ to: "/login", search: { redirect: undefined } });
+		},
+	});
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 
 	return (
