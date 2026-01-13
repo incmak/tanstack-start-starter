@@ -32,7 +32,7 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import * as React from "react";
-import { Example, ExampleWrapper } from "@/components/example";
+import { Example, ExampleWrapper } from "@/components/demo/example";
 import {
 	AlertDialog,
 	AlertDialogAction,

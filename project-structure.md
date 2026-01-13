@@ -15,7 +15,10 @@ src
 +-- assets               # assets folder can contain all the static files such as images, fonts, etc.
 |
 +-- components           # shared components used across the entire application
+|   +-- core/            # app shell components (RootDocument, RootError, ErrorBoundary)
+|   +-- layouts/         # page layout components (DashboardLayout, etc.)
 |   +-- ui/              # shadcn/ui components (Button, Card, Input, etc.)
+|   +-- demo/            # demo/example components (can be removed in production)
 |
 +-- config               # global configurations, exported env variables etc.
 |
@@ -48,6 +51,46 @@ src
 - **Never edit** `routeTree.gen.ts` - it's auto-generated and will be overwritten
 
 **Note:** This project uses TanStack Router's default `src/routes/` structure rather than `src/app/routes/`. While bulletproof-react recommends an `app` folder, we follow TanStack Router's conventions for better framework integration.
+
+## Components Folder Structure
+
+The `components/` folder is organized into categories for better separation of concerns:
+
+```sh
+src/components
+|
++-- core/            # App shell & infrastructure components
+|   +-- root-document.tsx    # HTML document wrapper (html, head, body)
+|   +-- root-error.tsx       # Router-level error boundary UI
+|   +-- error-boundary.tsx   # React error boundary wrapper
+|
++-- layouts/         # Page layout components
+|   +-- dashboard-layout.tsx # Dashboard page structure
+|
++-- ui/              # shadcn/ui primitives (DO NOT add business logic here)
+|   +-- button.tsx
+|   +-- card.tsx
+|   +-- input.tsx
+|   +-- ...
+|
++-- demo/            # Example/demo components (safe to delete in production)
+```
+
+**Rules:**
+
+- `core/` - Framework-level components that set up the app shell. Rarely modified.
+- `layouts/` - Reusable page structures. Should only handle layout, not business logic.
+- `ui/` - Design system primitives. Never add business logic or API calls here.
+- `demo/` - Temporary examples. Delete when shipping to production.
+
+**Where to put new components:**
+
+- Feature-specific? → `src/features/[feature]/components/`
+- Shared primitive? → `src/components/ui/`
+- Page layout? → `src/components/layouts/`
+- App infrastructure? → `src/components/core/`
+
+---
 
 For easy scalability and maintenance, organize most of the code within the features folder. Each feature folder should contain code specific to that feature, keeping things neatly separated. This approach helps prevent mixing feature-related code with shared components, making it simpler to manage and maintain the codebase compared to having many files in a flat folder structure. By adopting this method, you can enhance collaboration, readability, and scalability in the application's architecture.
 
