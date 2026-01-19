@@ -16,10 +16,8 @@ export function LoginForm() {
 			if (data.error) {
 				return;
 			}
-			// Small delay to allow session query to update before navigation
-			// This prevents race condition with beforeLoad guard
-			await new Promise((resolve) => setTimeout(resolve, 100));
 			// Navigate to redirect URL or dashboard
+			// Session query is already refetched in useLogin before this callback
 			await handleRedirect();
 		},
 	});
@@ -51,7 +49,11 @@ export function LoginForm() {
 				className="space-y-4 sm:space-y-5"
 			>
 				{serverError && (
-					<div className="p-3 sm:p-4 bg-destructive/10 border border-destructive/20 rounded-lg sm:rounded-xl text-destructive text-sm">
+					<div
+						role="alert"
+						aria-live="polite"
+						className="p-3 sm:p-4 bg-destructive/10 border border-destructive/20 rounded-lg sm:rounded-xl text-destructive text-sm"
+					>
 						{serverError}
 					</div>
 				)}

@@ -1,14 +1,22 @@
-import { createContext, type ReactNode, useContext } from "react";
+import { createContext, type ReactNode, useContext, useMemo } from "react";
 import { useTheme } from "../hooks/use-theme";
 import type { ThemeState } from "../types";
 
 const ThemeContext = createContext<ThemeState | null>(null);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-	const themeState = useTheme();
+	const { theme, resolvedTheme, setTheme } = useTheme();
+
+	// Memoize context value to prevent unnecessary re-renders
+	const contextValue = useMemo(
+		() => ({ theme, resolvedTheme, setTheme }),
+		[theme, resolvedTheme, setTheme],
+	);
 
 	return (
-		<ThemeContext.Provider value={themeState}>{children}</ThemeContext.Provider>
+		<ThemeContext.Provider value={contextValue}>
+			{children}
+		</ThemeContext.Provider>
 	);
 }
 

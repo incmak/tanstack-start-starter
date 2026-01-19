@@ -227,6 +227,7 @@ bunx biome lint          # Lint code only
 ```
 
 **Auto-fix on Save**: Editor is configured in `.vscode/settings.json` to:
+
 - Format with Biome on save
 - Organize imports automatically
 - Fix linting issues
@@ -295,17 +296,20 @@ src/
 **CRITICAL: Route Files Must Be Thin**
 
 Routes in `src/routes/` should ONLY:
+
 - Import and compose feature components
 - Handle route-level concerns (redirects, loaders, meta)
 - Pass data from loaders to components
 
 Routes should NEVER:
+
 - ❌ Contain form state management (`useState` for form fields)
 - ❌ Implement business logic (API calls, validation)
 - ❌ Have `handleSubmit` functions or event handlers
 - ❌ Directly use feature hooks like `useAuth()`
 
 **Example - WRONG (logic in route):**
+
 ```typescript
 // ❌ src/routes/login.tsx - BAD!
 function LoginPage() {
@@ -316,6 +320,7 @@ function LoginPage() {
 ```
 
 **Example - CORRECT (thin route, logic in feature):**
+
 ```typescript
 // ✅ src/routes/login.tsx - GOOD!
 import { LoginForm } from "@/features/auth/components/login-form"
@@ -401,6 +406,7 @@ import { ArrowRight01Icon, SearchIcon } from "@hugeicons/core-free-icons"
    - Don't hardcode colors like `bg-purple-500` unless specific need
 
 **Example - Defining Custom Utilities:**
+
 ```css
 /* src/styles.css */
 @layer utilities {
@@ -418,11 +424,13 @@ import { ArrowRight01Icon, SearchIcon } from "@hugeicons/core-free-icons"
 This project uses Husky to enforce code quality on commits/pushes.
 
 **Pre-commit (runs on every commit):**
+
 - Biome check (lint + format) on staged files via lint-staged
 - TypeScript type checking (`tsc --noEmit`)
 - Console.log detection (blocks commits with `console.log`)
 
 **Pre-push (runs before pushing):**
+
 - Runs all tests (`bun test`)
 
 **Bypassing hooks (emergency only):**

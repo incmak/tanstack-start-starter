@@ -3,7 +3,16 @@ import type { DefaultOptions } from "@tanstack/react-query";
 export const queryConfig: DefaultOptions = {
 	queries: {
 		refetchOnWindowFocus: false,
-		retry: false,
+		// Retry network errors up to 2 times with exponential backoff
+		retry: (failureCount, error) => {
+			// Don't retry on 4xx errors (client errors)
+			if (error instanceof Error && "status" in error) {
+				const status = (error as Error & { status: number }).status;
+				if (status >= 400 && status < 500) return false;
+			}
+			// Retry network errors up to 2 times
+			return failureCount < 2;
+		},
 		staleTime: 1000 * 60, // 60 seconds
 	},
 };

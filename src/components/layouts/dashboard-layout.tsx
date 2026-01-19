@@ -52,6 +52,8 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
 			{/* Sidebar */}
 			<aside
+				id="sidebar"
+				aria-label="Main navigation"
 				className={cn(
 					"fixed inset-y-0 left-0 z-50 w-64 border-r border-border bg-sidebar flex flex-col transform transition-transform duration-200 ease-in-out md:relative md:translate-x-0",
 					sidebarOpen ? "translate-x-0" : "-translate-x-full",
@@ -131,6 +133,8 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 							className="md:hidden"
 							onClick={() => setSidebarOpen(true)}
 							aria-label="Open menu"
+							aria-expanded={sidebarOpen}
+							aria-controls="sidebar"
 						>
 							<HugeiconsIcon icon={Menu01Icon} size={20} />
 						</Button>

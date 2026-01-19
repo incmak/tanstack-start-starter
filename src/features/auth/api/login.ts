@@ -30,8 +30,9 @@ export const useLogin = (options?: UseLoginOptions) => {
 
 	return useMutation({
 		mutationFn: loginWithCredentials,
-		onSuccess: (data) => {
-			queryClient.invalidateQueries({ queryKey: ["session"] });
+		onSuccess: async (data) => {
+			// Await session refetch to ensure auth state is updated before navigation
+			await queryClient.refetchQueries({ queryKey: ["session"] });
 			options?.onSuccess?.(data);
 		},
 		onError: options?.onError,

@@ -14,7 +14,9 @@ export function FormField({
 	className,
 	...props
 }: FormFieldProps) {
-	const fieldId = id || React.useId();
+	const generatedId = React.useId();
+	const fieldId = id || generatedId;
+	const errorId = error ? `${fieldId}-error` : undefined;
 
 	return (
 		<div className="space-y-1.5">
@@ -22,10 +24,15 @@ export function FormField({
 			<Input
 				id={fieldId}
 				aria-invalid={!!error}
+				aria-describedby={errorId}
 				className={className}
 				{...props}
 			/>
-			{error && <p className="text-sm text-destructive">{error}</p>}
+			{error && (
+				<p id={errorId} role="alert" className="text-sm text-destructive">
+					{error}
+				</p>
+			)}
 		</div>
 	);
 }
